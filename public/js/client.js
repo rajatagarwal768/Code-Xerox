@@ -26,10 +26,13 @@ window.onload = function () {
     function addEditor(writer) {
         var ul = document.getElementById("editors");
         var li = document.createElement("li");
-        li.appendChild(document.createTextNode(writer.name));
-        li.className = "list-group-item";
-        li.id = writer.id;
-        ul.appendChild(li);
+        if(writer.name  !=  undefined)
+        {
+            li.appendChild(document.createTextNode(writer.name));
+            li.className = "list-group-item";
+            li.id = writer.id;
+            ul.appendChild(li);
+        }
     }
 
     function removeElement(id) {
@@ -150,7 +153,7 @@ window.onload = function () {
     var peer = new Peer(undefined, {
       path: "/peerjs",
       host: "/",
-      port: "3000",
+      port: "443",
     });
     
     let myVideoStream;
