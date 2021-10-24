@@ -1,0 +1,24 @@
+{
+  "name": "code-xerox",
+  "version": "1.0.0",
+  "description": "A collaborative code-editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rajat Agarwal",
+  "license": "ISC",
+  "dependencies": {
+    "@socket.io/redis-adapter": "^7.0.0",
+    "express": "^4.17.1",
+    "peer": "^0.6.1",
+    "redis": "^3.1.2",
+    "socket.io": "^4.3.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
