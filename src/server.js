@@ -70,6 +70,22 @@ io.on("connection", socket => {
     socket.on('register', function (data) {
         const room = data.documentId;
         socket.nickname = data.handle;
+
+       
+        socket.on("join-room", (roomId, userId, userName) => {
+            console.log(roomId, userId, userName);
+            socket.join(roomId);
+            //socket.to(roomId).broadcast.emit("user-connected", userId);
+            socket.broadcast.to(roomId).emit("user-connected", userId);
+            socket.on("message", (message) => {
+            io.to(roomId).emit("createMessage", message, userName);
+            console.log(userName)
+            });
+        });
+
+
+
+
         socket.join(room);
         let members = [];
         for (const clientId of io.sockets.adapter.rooms.get(room)) {
@@ -83,15 +99,15 @@ io.on("connection", socket => {
         socket.to(room).emit('register', { id: socket.id, name: data.handle });
     });
 
-     socket.on("join-room", (roomId, userId, userName) => {
-        socket.join(roomId);
-        //socket.to(roomId).broadcast.emit("user-connected", userId);
-        socket.broadcast.to(roomId).emit("user-connected", userId);
-        socket.on("message", (message) => {
-        io.to(roomId).emit("createMessage", message, userName);
-        console.log(userName)
-        });
-    });
+    //  socket.on("join-room", (roomId, userId, userName) => {
+    //     socket.join(roomId);
+    //     //socket.to(roomId).broadcast.emit("user-connected", userId);
+    //     socket.broadcast.to(roomId).emit("user-connected", userId);
+    //     socket.on("message", (message) => {
+    //     io.to(roomId).emit("createMessage", message, userName);
+    //     console.log(userName)
+    //     });
+    // });
 
     socket.on('disconnect', function (data) {
         console.log("Disconnected");
