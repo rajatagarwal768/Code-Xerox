@@ -87,10 +87,16 @@ io.on("connection", socket => {
         socket.join(roomId);
         //socket.to(roomId).broadcast.emit("user-connected", userId);
         socket.broadcast.to(roomId).emit("user-connected", userId);
-        socket.on("message", (message) => {
-        io.to(roomId).emit("createMessage", message, userName);
-        console.log(userName)
-        });
+        // socket.on("message", (message) => {
+        // io.to(roomId).emit("createMessage", message, userName);
+        // console.log(userName)
+        // });
+    });
+
+    socket.on("message", (data) => {
+        console.log(data);
+        io.to(data.id).emit("createMessage", data.message, data.name);
+        //console.log(userName)
     });
 
     socket.on('disconnect', function (data) {

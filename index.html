@@ -23,7 +23,7 @@
 
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js" integrity="sha512-XMlgZzPyVXf1I/wbGnofk1Hfdx+zAWyZjh6c21yGo/k1zNC4Ve6xcQnTDTCHrjFGsOrVicJsBURLYktVEu/8vQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/theme/dracula.min.css" integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/theme/cobalt.min.css" integrity="sha512-dAYwzcmdv0GvCo9UJmVP430Mc9kmvpdDVk/pHNG90qTZR6tpHQlR9BsVdK9ZGpnNtQNVl+j7UQppCwOPN0TTNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/mode/clike/clike.min.js" integrity="sha512-GAled7oA9WlRkBaUQlUEgxm37hf43V2KEMaEiWlvBO/ueP2BLvBLKN5tIJu4VZOTwo6Z4XvrojYngoN9dJw2ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -41,7 +41,7 @@
     <!-- CSS sheet -->
     <link rel="stylesheet" href="public/css/style.css" />
     <link rel="icon" href="public/img/favicon.ico" />
-    <title>Collab Code</title>
+    <title>Code Xerox</title>
   </head>
 
   <body>
@@ -53,7 +53,7 @@
         <div class="glass-container" id="glass">
           
           <div class="register-flex-1">
-             <h1>Collab Code</h1>
+             <h1>Code Xerox</h1>
           </div>
            <div >
                <input type="text" class="form-control" id="handle" placeholder="Your Nickname" />
@@ -64,11 +64,11 @@
     </div>
 
     <!-- Editor page -->
-    <div id="editor-block" class="row" style="display: none;">
+    <div id="editor-block" style="display: none;">
 
       <!-- logo text -->
-       <div class="register-flex-1">
-             <h1>Collab Code</h1>
+       <div class="editor-flex-1">
+             <h1>Code Xerox</h1>
           </div>
 
           <!-- user-card -->
@@ -92,18 +92,14 @@
           </div>
           <div class="main__message_container">
             <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
-            <div id="send" class="options__button">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <div id="send" class="send__button">
+              <i class="fab fa-telegram-plane" aria-hidden="true"></i>
             </div>
           </div>
       </div>
 
       </div>
           
-          
-      <div class="header__back">
-            <i class="fas fa-angle-left"></i>
-      </div>  
       
       <div class="main">  
       <div class="main__left">
@@ -120,13 +116,10 @@
             <div id="muteButton" class="options__button">
               <i class="fa fa-microphone"></i>
             </div>
-            <div id="showChat" class="options__button">
-              <i class="fa fa-comment"></i>
-            </div>
-          </div>
-          <div class="options__right">
-            <div id="inviteButton" class="options__button">
-              <i class="fas fa-user-plus"></i>
+            <div class="options__right">
+              <div id="inviteButton" class="options__button">
+                <i class="fas fa-user-plus"></i>
+              </div>
             </div>
           </div>
         </div>

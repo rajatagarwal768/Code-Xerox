@@ -1,8 +1,9 @@
-"use strict"
 window.onload = function () {
     let socket ;
     const documentId = new URL(window.location.href).pathname.split('/')[1] || 'test';
-    // console.log(documentId);
+    let name='';
+    let user =''; 
+    let videoId = '';
     
     const handle = document.getElementById('handle');
     const register = document.getElementById('register');
@@ -15,10 +16,16 @@ window.onload = function () {
                 styleActiveLine: true,
                 lineNumbers: true,
                 matchBrackets: true,
-                theme: 'dracula',
+                theme: 'cobalt',
                 mode: "text/x-csrc",
             }); 
-    console.log(editor)
+      var minLines = 14;
+      var startingValue = '';
+      for (var i = 0; i < minLines; i++) {
+        startingValue += '\n';
+      }
+      // console.log(editor)
+      Codeeditor.setValue(startingValue);
 
     let syncValue = Array();
     let keypressed = false;
@@ -26,16 +33,15 @@ window.onload = function () {
     function addEditor(writer) {
         var ul = document.getElementById("editors");
         var li = document.createElement("li");
-        if(writer.name  !=  undefined)
-        {
-            li.appendChild(document.createTextNode(writer.name));
-            li.className = "list-group-item";
-            li.id = writer.id;
-            ul.appendChild(li);
-        }
+        li.appendChild(document.createTextNode(writer.name));
+        li.className = "list-group-item";
+        li.id = writer.id;
+        ul.appendChild(li);
     }
 
     function removeElement(id) {
+        const video1 = document.getElementById(videoId);
+        video1.parentNode.removeChild(video1);
         var elem = document.getElementById(id);
         return elem.parentNode.removeChild(elem);
     }
@@ -65,12 +71,12 @@ window.onload = function () {
             applyLocalChanges();
 
             // let ranges = editor.getSelection().getRanges();
-            //console.log(syncValue.join(''));
             Codeeditor.setValue(syncValue.join(''))
             // editor.getSelection().selectRanges(ranges);
         });
         socket.on('register', (data) => {
             addEditor(data);
+            videoId=data.id;
         });
 
         socket.on('user_left', (data) => {
@@ -93,21 +99,36 @@ window.onload = function () {
         const editorBlock = document.getElementById('editor-block');
         editorBlock.style.display = 'flex';
         syncValue = "";
-        socket = io();
+        // socket = io();
+        name=handle.value;
+        user = handle.value;
         socket.emit('register', {
             handle: handle.value,
             documentId: documentId
         });
         setSocketEvents();
+
+         socket.on("createMessage", (message, userName) => {
+          //  console.log(message,user,userName)
+      messages.innerHTML =
+        messages.innerHTML +
+        `<div class="message">
+            <b><i class="far fa-user-circle"></i> <span> ${
+              userName === user ? "me" : userName
+            }</span> </b> 
+            <span>${message}</span>
+        </div>`;
+        });
+    
     }
 
     function getChanges(input, output) {
-        return diffToChanges(diff(input, output), output);
+      return diffToChanges(diff(input, output), output);
     }
-
+    
     function applyChanges(input, changes) {
-        changes.forEach(change => {
-            if (change.type == 'insert') {
+      changes.forEach(change => {
+        if (change.type == 'insert') {
                 input.splice(change.index, 0, ...change.values);
             } else if (change.type == 'delete') {
                 input.splice(change.index, change.howMany);
@@ -124,31 +145,14 @@ window.onload = function () {
 
     register.addEventListener('click', registerUserListener);
 
-
+    
     socket = io('/')
     const ROOM_ID = documentId;
     
     const videoGrid = document.getElementById("video-grid");
     const myVideo = document.createElement("video");
-    const showChat = document.querySelector("#showChat");
-    const backBtn = document.querySelector(".header__back");
     myVideo.muted = true;
     
-    backBtn.addEventListener("click", () => {
-      document.querySelector(".main__left").style.display = "flex";
-      document.querySelector(".main__left").style.flex = "1";
-      document.querySelector(".main__right").style.display = "none";
-      document.querySelector(".header__back").style.display = "none";
-    });
-    
-    showChat.addEventListener("click", () => {
-      document.querySelector(".main__right").style.display = "flex";
-      document.querySelector(".main__right").style.flex = "1";
-      document.querySelector(".main__left").style.display = "none";
-      document.querySelector(".header__back").style.display = "block";
-    });
-    
-    const user = handle;
     
     var peer = new Peer(undefined, {
       path: "/peerjs",
@@ -175,13 +179,16 @@ window.onload = function () {
         });
     
         socket.on("user-connected", (userId) => {
-          connectToNewUser(userId, stream);
+           connectToNewUser(userId, stream);
+          //setTimeout(connectToNewUser,1000,userId,stream)
         });
       });
     
     const connectToNewUser = (userId, stream) => {
       const call = peer.call(userId, stream);
       const video = document.createElement("video");
+      video.id = userId;
+      // console.log(userId)
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
       });
@@ -196,6 +203,7 @@ window.onload = function () {
       video.addEventListener("loadedmetadata", () => {
         video.play();
         videoGrid.append(video);
+        
       });
     };
     
@@ -204,16 +212,26 @@ window.onload = function () {
     let messages = document.querySelector(".messages");
     
     send.addEventListener("click", (e) => {
+        //console.log(Name);
       if (text.value.length !== 0) {
-        socket.emit("message", text.value);
-        console.log(text.value);
+        socket.emit("message", {
+            message: text.value,
+            id: documentId,
+            name: Name
+        });
+        //console.log(text.value);
         text.value = "";
       }
     });
     
     text.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && text.value.length !== 0) {
-        socket.emit("message", text.value);
+        socket.emit("message", {
+            message: text.value,
+            id: documentId,
+            name: Name
+        });
+        
         text.value = "";
       }
     });
@@ -258,16 +276,17 @@ window.onload = function () {
       );
     });
     
-    socket.on("createMessage", (message, userName) => {
-      messages.innerHTML =
-        messages.innerHTML +
-        `<div class="message">
-            <b><i class="far fa-user-circle"></i> <span> ${
-              userName === user ? "me" : userName
-            }</span> </
-            <span>${message}</span>
-        </div>`;
-    });
+    // socket.on("createMessage", (message, userName) => {
+    //     console.log(message);
+    //   messages.innerHTML =
+    //     messages.innerHTML +
+    //     `<div class="message">
+    //         <b><i class="far fa-user-circle"></i> <span> ${
+    //           userName === user ? "me" : userName
+    //         }</span> </
+    //         <span>${message}</span>
+    //     </div>`;
+    // });
     
     
 
