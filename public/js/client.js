@@ -40,8 +40,8 @@ window.onload = function () {
     }
 
     function removeElement(id) {
-        const video1 = document.getElementById(videoId);
-        video1.parentNode.removeChild(video1);
+        // const video1 = document.getElementById(videoId);
+        // video1.parentNode.removeChild(video1);
         var elem = document.getElementById(id);
         return elem.parentNode.removeChild(elem);
     }
@@ -154,7 +154,8 @@ window.onload = function () {
     const myVideo = document.createElement("video");
     myVideo.muted = true;
     
-    
+    const peers ={};
+
     var peer = new Peer(undefined, {
       path: "/peerjs",
       host: "/",
