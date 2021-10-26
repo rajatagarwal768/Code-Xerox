@@ -178,11 +178,7 @@ window.onload = function () {
           call.on("stream", (userVideoStream) => {
             addVideoStream(video, userVideoStream);
           });
-          call.on('close',()=>{
-              video.remove()
-            });
-
-            peers[userId] = call;
+          
         });
     
         socket.on("user-connected", (userId) => {
@@ -199,6 +195,11 @@ window.onload = function () {
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
       });
+        call.on('close',()=>{
+          video.remove()
+        });
+
+        peers[userId] = call;
     };
     
     peer.on("open", (id) => {
