@@ -40,6 +40,7 @@ window.onload = function () {
     }
 
     function removeElement(id) {
+        console.log(id);
         const video1 = document.getElementById(videoId);
         video1.parentNode.removeChild(video1);
         var elem = document.getElementById(id);
@@ -173,6 +174,8 @@ window.onload = function () {
         peer.on("call", (call) => {
           call.answer(stream);
           const video = document.createElement("video");
+          video.id = userId;
+          console.log(userId);
           call.on("stream", (userVideoStream) => {
             addVideoStream(video, userVideoStream);
           });
