@@ -18,7 +18,7 @@ font-family: 'Rubik', sans-serif; */
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url(../IMG//svg.png);
+  background-image: url(../img//svg.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-color: #161d29;
@@ -345,6 +345,30 @@ video {
   color: #fff;
 }
 
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+    scroll-behavior: smooth;
+}
+
+
+h1{
+    letter-spacing: 0.2rem;
+    word-spacing: 0.5rem;
+}
+
+.editor-flex-1{
+  padding-top: 30px;
+}
+
+body{
+  background-color: #1d2635;
+}
+
 @media (max-width: 700px) {
   .main__right {
     display: none;
@@ -363,24 +387,3 @@ video {
     display: flex;
   }
 }
-
-
-
-
-
-/*
-
-
-
-h1{
-    letter-spacing: 0.2rem;
-    word-spacing: 0.5rem;
-}
-
-.register-flex-1{
-  margin-top: 30px;
-}
-
-body{
-  background-color: #1d2635;
-}*/
