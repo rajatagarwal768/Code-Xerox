@@ -40,8 +40,8 @@ window.onload = function () {
     }
 
     function removeElement(id) {
-        const video1 = document.getElementById(videoId);
-        video1.parentNode.removeChild(video1);
+        // const video1 = document.getElementById(videoId);
+        // video1.parentNode.removeChild(video1);
         var elem = document.getElementById(id);
         return elem.parentNode.removeChild(elem);
     }
