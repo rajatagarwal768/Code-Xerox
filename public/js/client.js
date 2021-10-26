@@ -40,8 +40,8 @@ window.onload = function () {
     }
 
     function removeElement(id) {
-        // const video1 = document.getElementById(videoId);
-        // video1.parentNode.removeChild(video1);
+        const video1 = document.getElementById(videoId);
+        video1.parentNode.removeChild(video1);
         var elem = document.getElementById(id);
         return elem.parentNode.removeChild(elem);
     }
@@ -81,7 +81,6 @@ window.onload = function () {
 
         socket.on('user_left', (data) => {
             removeElement(data.id);
-            if(peers[data.id]) peers[data.id].close()
         });
         socket.on('members', (members) => {
             members.forEach(member => {
@@ -154,8 +153,7 @@ window.onload = function () {
     const myVideo = document.createElement("video");
     myVideo.muted = true;
     
-    const peers ={};
-
+    
     var peer = new Peer(undefined, {
       path: "/peerjs",
       host: "/",
@@ -178,7 +176,6 @@ window.onload = function () {
           call.on("stream", (userVideoStream) => {
             addVideoStream(video, userVideoStream);
           });
-          
         });
     
         socket.on("user-connected", (userId) => {
@@ -195,11 +192,6 @@ window.onload = function () {
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
       });
-        call.on('close',()=>{
-          video.remove()
-        });
-
-        peers[userId] = call;
     };
     
     peer.on("open", (id) => {
