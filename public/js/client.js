@@ -212,12 +212,12 @@ window.onload = function () {
     let messages = document.querySelector(".messages");
     
     send.addEventListener("click", (e) => {
-        //console.log(Name);
+        //console.log(name);
       if (text.value.length !== 0) {
         socket.emit("message", {
             message: text.value,
             id: documentId,
-            name: Name
+            name: name
         });
         //console.log(text.value);
         text.value = "";
@@ -229,7 +229,7 @@ window.onload = function () {
         socket.emit("message", {
             message: text.value,
             id: documentId,
-            name: Name
+            name: name
         });
         
         text.value = "";
