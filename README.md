@@ -148,7 +148,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contact
 
-Rajat Agarwal - [LinkedIn - Rajat Agarwal](https://www.linkedin.com/in/rajat-agarwal-28a183191/) - rajatagarwal768@gmail.com
+Rajat Agarwal - [LinkedIn - Rajat Agarwal](https://www.linkedin.com/in/rajat768/) - rajatagarwal768@gmail.com
 
 
 
