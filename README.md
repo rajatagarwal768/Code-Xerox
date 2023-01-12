@@ -11,7 +11,7 @@
   <h1 align="center">Code Xerox</h1>
 
   <p align="left">
-   A collaborative code editor with live code sharing and video calling. Try out with this given <a href="https://rajat768-code-xerox.herokuapp.com/">Project link</a>.
+   A collaborative code editor with live code sharing and video calling. Try out with this given <a href="https://code-xerox-2bxr.onrender.com">Project link</a>.
   </p>
 </div>
 
